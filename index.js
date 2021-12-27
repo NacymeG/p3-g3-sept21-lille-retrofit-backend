@@ -1,15 +1,23 @@
+const connection = require('./db-config');
+const { setupRoutes } = require('./routes');
+
 const express = require('express');
+const cors = require('cors')
 
 const app = express();
+const port = process.env.PORT;
+const db = connection.promise();
+require('dotenv').config();
 
-app.get('/characters', async (req, res) => {
-  res.status(404).send('Route not found! ');
-});
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
+setupRoutes(app);
 
 app.use('/', (req, res) => {
   res.status(404).send('Route not found! ');
 });
 
-app.listen(5050, () => {
-  console.log('Terra Battle API now available on http://localhost:5050 !');
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
