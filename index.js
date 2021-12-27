@@ -1,3 +1,4 @@
+const cookieParser = require('cookie-parser')
 const connection = require('./db-config');
 const { setupRoutes } = require('./routes');
 
