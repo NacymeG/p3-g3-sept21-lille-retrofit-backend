@@ -1,17 +1,12 @@
-const cookieParser = require('cookie-parser')
-const connection = require('./db-config');
-const { setupRoutes } = require('./routes');
-
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
+const { setupRoutes } = require('./routes');
 
 const app = express();
 const port = process.env.PORT;
-const db = connection.promise();
 require('dotenv').config();
 
 app.use(express.json());
-app.use(cookieParser());
 app.use(cors());
 setupRoutes(app);
 
