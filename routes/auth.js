@@ -19,30 +19,39 @@ authRouter.post('/signup', async (req, res) => {
   res
     .status(201)
     .send(
-      'Inscription réussi, vous allez recevoir un mail pour valider votre compte'
+      'Inscription réussie, vous allez recevoir un mail pour valider votre compte'
     );
 });
 
 authRouter.post('/login', async (req, res) => {
-  const { mail, password } = req.body;
-  const validationErrors = await Auth.loginValidation(req.body);
-  if (validationErrors) {
-    res.status(409).send(validationErrors.details[0].message);
-    throw new Error('Validation ERROR');
-  }
-  const user = await Auth.verifyEmail(mail);
-  console.log(user);
-  if (!user)
-    res.status(404).send(`Identifiant ou mot de passe incorrect
-  `);
-  const checkPwd = await Auth.verifyPassword(password, user.password);
-  if (checkPwd && user) {
-    const jwt = await Auth.calculateToken(mail, user.id);
-    res
-      .status(202)
-      .cookie('user_token', jwt)
-      .send(`Hi ${user.firstname} ${user.lastname} !`);
-    console.log('Cookies: ', req.headers.cookie.split('=')[1]);
+  const { mail, password, token } = req.body;
+  try {
+    if (token) {
+      const decodedJwt = await Auth.decode(req.body.token);
+      const user = await Auth.verifyEmail(decodedJwt.email);
+      delete user.password;
+      res.send(user);
+    }
+
+    const validationErrors = await Auth.loginValidation(req.body);
+    if (validationErrors) {
+      res.status(409).send(validationErrors.details[0].message);
+      throw new Error('Validation ERROR');
+    }
+    const user = await Auth.verifyEmail(mail);
+    if (!user) res.status(404).send(`Identifiant ou mot de passe incorrect`);
+    const checkPwd = await Auth.verifyPassword(password, user.password);
+    if (checkPwd && user) {
+      delete user.password;
+      const jwt = await Auth.calculateToken(mail, user.id);
+      res.status(202).send({
+        welcome: `Hi ${user.firstname} ${user.lastname} !`,
+        token: jwt,
+        user,
+      });
+    }
+  } catch (error) {
+    res.status(error.status).send();
   }
 });
 
