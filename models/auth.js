@@ -24,7 +24,7 @@ const signupValidation = (data, forCreation = true) => {
       .max(64)
       .presence(presence)
       .pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/),
-    repeadPass: Joi.ref('password'),
+    repeatPass: Joi.ref('password'),
     firstname: Joi.string().min(1).max(64).presence(presence),
     lastname: Joi.string().min(1).max(64).presence(presence),
   }).validate(data, { abortEarly: false }).error;
