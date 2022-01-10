@@ -8,6 +8,7 @@
   "license": "ISC",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon app.js",
     "lint": "eslint \"./**/*.js\" --fix .",
     "prettify": "prettier --write ."
   },
@@ -25,6 +26,8 @@
     }
   },
   "dependencies": {
+    "argon2": "^0.28.3",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
     "express": "^4.17.2",
@@ -32,6 +35,8 @@
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15",
     "npm": "^8.3.0"
+    "joi": "^17.5.0",
+    "jsonwebtoken": "^8.5.1",
   },
   "devDependencies": {
     "@babel/core": "^7.13.15",
