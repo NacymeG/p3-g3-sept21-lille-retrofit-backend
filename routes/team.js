@@ -6,7 +6,7 @@ const { db } = require('../db-config');
 router.get('/', async (req, res) => {
   try {
     const [team] = await db.query(`
-    SELECT firstName, lastName, profilPic, linkedinUrl
+    SELECT firstName, lastName, profilPic, linkedinUrl, role
     FROM staff
   `);
     res.json(team);
