@@ -1,0 +1,52 @@
+const passport = require('passport');
+
+const LocalStrategy = require('passport-local').Strategy;
+const JWTStrategy = require('passport-jwt').Strategy;
+const { ExtractJwt } = require('passport-jwt');
+
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: 'mail',
+      passwordField: 'password',
+    },
+    async (formMail, formPassword, done) => {
+      try {
+        const rows = await Auth.verifyEmail(formMail);
+        if (!rows.length) return done(null, false);
+        // res.status(404).send(`Identifiant ou mot de passe incorrect`);
+        const { id, mail, firstname, lastname, password } = rows[0];
+
+        const checkPwd = await Auth.verifyPassword(formPassword, password);
+        if (!checkPwd) return done(null, false, 'Wrong password!');
+        const user = { id, mail, firstname, lastname };
+        return done(null, user);
+      } catch (error) {
+        console.log(error);
+
+        return done(error);
+      }
+    }
+  )
+);
+
+passport.use(
+  new JWTStrategy(
+    {
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: jwt_secret,
+    },
+    (jwtPayload, done) => {
+      const user = jwtPayload;
+      return done(null, user);
+    }
+  )
+);
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
