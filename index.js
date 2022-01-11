@@ -1,15 +1,26 @@
 const express = require('express');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const { backPort } = require('./db-config');
+const { setupRoutes } = require('./routes/index');
 
 const app = express();
 
-app.get('/characters', async (req, res) => {
-  res.status(404).send('Route not found! ');
-});
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
 
+setupRoutes(app);
+
+// 404 Error
 app.use('/', (req, res) => {
-  res.status(404).send('Route not found! ');
+  const msg = `Page not found: ${req.method} ${req.url}`;
+  console.log(`404 - ${msg}`);
+  res.status(404).send(msg);
 });
 
-app.listen(5050, () => {
-  console.log('Terra Battle API now available on http://localhost:5050 !');
+app.listen(backPort, () => {
+  console.log(
+    `express-revisions API now available on http://localhost:${backPort} !`
+  );
 });
