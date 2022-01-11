@@ -2,14 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { backPort } = require('./db-config');
-const teamRoutes = require('./routes/team');
-const { setupRoutes } = require('./routes');
+const { setupRoutes } = require('./routes/index');
+
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
-app.use('/team', teamRoutes);
 
 setupRoutes(app);
 
