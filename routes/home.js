@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
   `);
     res.json(home);
   } catch (err) {
-    res.status(404).send();
+    res.status(404);
     console.warn(err);
   }
 });
