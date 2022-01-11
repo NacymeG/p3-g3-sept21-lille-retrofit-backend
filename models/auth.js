@@ -5,7 +5,7 @@ const connection = require('../db-config');
 
 const { PRIVATE_KEY } = process.env;
 
-const db = connection.promise();
+const { db } = connection;
 
 const hashingOptions = {
   type: argon2.argon2id,
