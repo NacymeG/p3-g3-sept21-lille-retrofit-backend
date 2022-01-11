@@ -1,11 +1,9 @@
 const argon2 = require('argon2');
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
-const connection = require('../db-config');
+const { db } = require('../db-config');
 
 const { PRIVATE_KEY } = process.env;
-
-const { db } = connection;
 
 const hashingOptions = {
   type: argon2.argon2id,
@@ -56,10 +54,12 @@ const hashPassword = (plainPassword) => {
 
 //= ================== Log in ==========================
 const verifyEmail = async (mail) => {
+  console.log('je rentre bien ici :', mail);
   const [rows] = await db.query(
     `SELECT id, mail, password, firstname, lastname FROM user WHERE mail = ?`,
     [mail]
   );
+
   return rows[0];
 };
 
