@@ -14,4 +14,3 @@ module.exports = {
   db,
   backPort: BACK_PORT,
 };
-
