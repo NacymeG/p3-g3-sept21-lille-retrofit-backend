@@ -1,11 +1,9 @@
 const argon2 = require('argon2');
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
-const connection = require('../db-config');
+const { db } = require('../db-config');
 
 const { PRIVATE_KEY } = process.env;
-
-const db = connection.promise();
 
 const hashingOptions = {
   type: argon2.argon2id,
