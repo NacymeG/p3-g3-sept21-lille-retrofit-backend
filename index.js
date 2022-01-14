@@ -1,14 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const { backPort } = require('./db-config');
 const { setupRoutes } = require('./routes/index');
+const { backPort } = require('./db-config');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
 
 setupRoutes(app);
 
