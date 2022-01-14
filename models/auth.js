@@ -54,7 +54,6 @@ const hashPassword = (plainPassword) => {
 
 //= ================== Log in ==========================
 const verifyEmail = async (mail) => {
-  console.log('je rentre bien ici :', mail);
   const [rows] = await db.query(
     `SELECT id, mail, password, firstname, lastname FROM user WHERE mail = ?`,
     [mail]
