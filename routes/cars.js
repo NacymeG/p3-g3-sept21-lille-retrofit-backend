@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     SELECT id, model, image, price, VoteNbr
     FROM cars ORDER BY VoteNbr DESC
   `);
-    res.json(cars);
+    res.json(cars).status(201);
   } catch (err) {
     res.status(404);
     console.warn(err);
