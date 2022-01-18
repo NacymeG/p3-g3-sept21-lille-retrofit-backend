@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 const { db } = require('../db-config');
 
-//= =================== GET all cars ==================
 
+//= =================== GET all cars ==================
 router.get('/', async (req, res) => {
   try {
     const [cars] = await db.query(`
@@ -45,5 +45,6 @@ router.put('/', async (req, res) => {
     console.warn(err);
   }
 });
+
 
 module.exports = router;
