@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
     SELECT id, type, name, streetNumber, street, postalCode, city, latitude, longitude, phone
     FROM location
   `);
-    console.log(location);
     res.json(location);
   } catch (err) {
     res.status(404);
