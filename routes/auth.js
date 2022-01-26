@@ -30,7 +30,7 @@ authRouter.post('/login', async (req, res) => {
       const decodedJwt = await Auth.decode(req.body.token);
       const user = await Auth.verifyEmail(decodedJwt.email);
       delete user.password;
-      res.send(user);
+      res.send(user).status(202);
     }
 
     const validationErrors = await Auth.loginValidation(req.body);
@@ -52,6 +52,27 @@ authRouter.post('/login', async (req, res) => {
     }
   } catch (error) {
     res.status(error.status).send();
+  }
+});
+
+authRouter.post('/admin', async (req, res) => {
+  const { mail, password } = req.body;
+  try {
+    const user = await Auth.verifyEmail(mail);
+    if (!user || !user.isAdmin)
+      res.status(404).send(`Identifiant ou mot de passe incorrect`);
+    const checkPwd = await Auth.verifyPassword(password, user.password);
+    if (checkPwd && user) {
+      delete user.password;
+      const jwt = await Auth.calculateToken(mail, user.id);
+      res.status(202).send({
+        welcome: `Hi ${user.firstname} ${user.lastname} !`,
+        token: jwt,
+        user,
+      });
+    }
+  } catch (error) {
+    res.status(error.status).send(401);
   }
 });
 
