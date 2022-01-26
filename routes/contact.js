@@ -15,10 +15,10 @@ contactRouter.post('/', (req, res) => {
 
   emailer.sendMail(
     {
-      from: `caroline.copy19@gmail.com`,
-      to: 'caroline.copy19@gmail.com',
+      from: `wild.retrofit@gmail.com`,
+      to: 'wild.retrofit@gmail.com',
       subject: `${subject}`,
-      text: 'Hello world',
+      text: '',
       html: `
       <h3>Détails du contact</h3>
       <p>Prénom: ${firstname}</p>
