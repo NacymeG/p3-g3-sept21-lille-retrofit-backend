@@ -76,9 +76,4 @@ authRouter.post('/admin', async (req, res) => {
   }
 });
 
-authRouter.get('/admin', async (req, res) => {
-  res.status(202).send({
-    welcome: `La route GET !`,
-  });
-});
 module.exports = authRouter;
