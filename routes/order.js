@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
     JOIN cars
     ON cars.id = orders.cars_id
     JOIN user ON user.id = orders.user_id
+    WHERE orders.user_id = 12
   `);
     res.json(order).status(201);
   } catch (err) {
