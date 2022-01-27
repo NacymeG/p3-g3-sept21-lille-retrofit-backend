@@ -33,7 +33,6 @@ contactRouter.post('/', (req, res) => {
     },
     (err, info) => {
       if (err) console.error(err);
-      else console.log(info);
     }
   );
 
