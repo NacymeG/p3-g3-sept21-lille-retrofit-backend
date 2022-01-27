@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 const { db } = require('../db-config');
 
-
 //= =================== GET ALL cars ==================
 
 router.get('/', async (req, res) => {
@@ -91,6 +90,5 @@ router.put('/', async (req, res) => {
     console.warn(err);
   }
 });
-
 
 module.exports = router;
