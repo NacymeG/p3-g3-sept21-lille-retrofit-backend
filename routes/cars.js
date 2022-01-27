@@ -8,7 +8,7 @@ const { db } = require('../db-config');
 router.get('/', async (req, res) => {
   try {
     const [cars] = await db.query(`
-    SELECT id, brand, model, image, price, VoteNbr
+    SELECT *
     FROM cars ORDER BY VoteNbr DESC
   `);
     res.json(cars);
