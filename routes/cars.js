@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const { db } = require('../db-config');
 
+
 //= =================== GET ALL cars ==================
 
 router.get('/', async (req, res) => {
@@ -11,7 +12,7 @@ router.get('/', async (req, res) => {
     SELECT *
     FROM cars ORDER BY VoteNbr DESC
   `);
-    res.json(cars);
+    res.json(cars).status(201);
   } catch (err) {
     res.status(404);
     console.warn(err);
@@ -90,5 +91,6 @@ router.put('/', async (req, res) => {
     console.warn(err);
   }
 });
+
 
 module.exports = router;

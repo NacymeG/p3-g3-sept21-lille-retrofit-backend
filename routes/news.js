@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     SELECT id, source, image, description, date
     FROM news
   `);
-    res.json(news);
+    res.json(news).status(201);
   } catch (err) {
     res.status(404);
     console.warn(err);
@@ -30,7 +30,7 @@ router.get('/:id', async (req, res) => {
   `,
       [id]
     );
-    res.json(news);
+    res.json(news).status(201);
   } catch (err) {
     res.status(404);
     console.warn(err);
