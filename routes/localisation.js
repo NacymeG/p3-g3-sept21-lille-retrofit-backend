@@ -5,15 +5,14 @@ const { db } = require('../db-config');
 
 router.get('/', async (req, res) => {
   try {
-    const [home] = await db.query(`
-    SELECT source, image, description, date
-    FROM news
+    const [location] = await db.query(`
+    SELECT id, type, name, streetNumber, street, postalCode, city, latitude, longitude, phone
+    FROM location
   `);
-    res.json(home);
+    res.json(location).status(201);
   } catch (err) {
     res.status(404);
     console.warn(err);
   }
 });
-
 module.exports = router;
