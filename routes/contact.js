@@ -31,7 +31,7 @@ contactRouter.post('/', (req, res) => {
       <p>${message}</p>
       `,
     },
-    (err, info) => {
+    (err) => {
       if (err) console.error(err);
     }
   );
