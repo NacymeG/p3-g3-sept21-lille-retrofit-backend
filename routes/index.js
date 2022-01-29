@@ -5,6 +5,7 @@ const localisationRoutes = require('./localisation');
 const newsRoutes = require('./news');
 const carsRoutes = require('./cars');
 const orderRoutes = require('./order');
+const userRoutes = require('./profile');
 
 const setupRoutes = (app) => {
   app.use('/auth', authRouter);
@@ -15,6 +16,7 @@ const setupRoutes = (app) => {
   app.use('/localisation', localisationRoutes);
   app.use('/cars', carsRoutes);
   app.use('/order', orderRoutes);
+  app.use('/profile', userRoutes);
 };
 
 module.exports = {
