@@ -14,7 +14,6 @@ router.get('/', async (req, res) => {
     res.json(cars).status(201);
   } catch (err) {
     res.status(404);
-    console.warn(err);
   }
 });
 
@@ -33,7 +32,6 @@ router.get('/:id', async (req, res) => {
     res.json(cars).status(204);
   } catch (err) {
     res.status(404);
-    console.warn(err);
   }
 });
 //= =================== MODIFY a car ==================
@@ -87,7 +85,6 @@ router.put('/', async (req, res) => {
     res.json(rowIncr).status(204);
   } catch (err) {
     res.status(404);
-    console.warn(err);
   }
 });
 
