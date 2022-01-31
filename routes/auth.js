@@ -4,7 +4,6 @@ const Auth = require('../models/auth');
 const errorMessage = {
   mail: 'Email already exist',
 };
-
 authRouter.post('/signup', async (req, res) => {
   const validationErrors = await Auth.signupValidation(req.body);
   if (validationErrors) {
@@ -22,7 +21,6 @@ authRouter.post('/signup', async (req, res) => {
       'Inscription réussie, vous allez recevoir un mail pour valider votre compte'
     );
 });
-
 authRouter.post('/login', async (req, res) => {
   const { mail, password, token } = req.body;
   try {
@@ -32,7 +30,6 @@ authRouter.post('/login', async (req, res) => {
       delete user.password;
       res.send(user).status(202);
     }
-
     const validationErrors = await Auth.loginValidation(req.body);
     if (validationErrors) {
       res.status(409).send(validationErrors.details[0].message);
@@ -54,7 +51,6 @@ authRouter.post('/login', async (req, res) => {
     res.status(error.status).send();
   }
 });
-
 authRouter.post('/admin', async (req, res) => {
   const { mail, password } = req.body;
   try {
@@ -75,5 +71,9 @@ authRouter.post('/admin', async (req, res) => {
     res.status(error.status).send(401);
   }
 });
-
+authRouter.get('/admin', async (req, res) => {
+  res.status(202).send({
+    welcome: `La route GET !`,
+  });
+});
 module.exports = authRouter;
