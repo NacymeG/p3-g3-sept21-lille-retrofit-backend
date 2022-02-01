@@ -33,11 +33,6 @@ authRouter.post('/login', async (req, res) => {
       delete user.password;
       res.send(user).status(202);
     }
-    // const validationErrors = await Auth.loginValidation(req.body);
-    // if (validationErrors) {
-    //   res.status(409).send(validationErrors.details[0].message);
-    //   throw new Error('Validation ERROR');
-    // }
     const user = await Auth.verifyEmail(mail);
     if (!user) res.status(404).send(`Identifiant ou mot de passe incorrect`);
     const checkPwd = await Auth.verifyPassword(password, user.password);
