@@ -18,8 +18,8 @@ const signupValidation = (data, forCreation = true) => {
   const presence = forCreation ? 'required' : 'optional';
   return Joi.object({
     mail: Joi.string().email().max(128).presence(presence).messages({
+      'string.empty': `L'e-mail' est obligatoire`,
       'string.email': `Le format de l'adresse e-mail est invalide`,
-      'string.pattern.base': `Le  Mot de Passe doit contenir au moins 8 caractères, une majuscule, un nombre et un caractère spécial`,
     }),
     password: Joi.string()
       .max(64)
