@@ -2,11 +2,14 @@ const authRouter = require('express').Router();
 const Auth = require('../models/auth');
 
 const errorMessage = {
-  mail: 'Email already exist',
+  mail: `L'adresse e-mail est déja utilisée`,
+  repeatPass: `Les mots de passe ne sont pas identiques`,
 };
 authRouter.post('/signup', async (req, res) => {
   const validationErrors = await Auth.signupValidation(req.body);
   if (validationErrors) {
+    if (validationErrors.details[0].path[0] === 'repeatPass')
+      res.status(409).send(errorMessage.repeatPass);
     res.status(409).send(validationErrors.details[0].message);
     throw new Error('Validation ERROR');
   }
@@ -30,11 +33,11 @@ authRouter.post('/login', async (req, res) => {
       delete user.password;
       res.send(user).status(202);
     }
-    const validationErrors = await Auth.loginValidation(req.body);
-    if (validationErrors) {
-      res.status(409).send(validationErrors.details[0].message);
-      throw new Error('Validation ERROR');
-    }
+    // const validationErrors = await Auth.loginValidation(req.body);
+    // if (validationErrors) {
+    //   res.status(409).send(validationErrors.details[0].message);
+    //   throw new Error('Validation ERROR');
+    // }
     const user = await Auth.verifyEmail(mail);
     if (!user) res.status(404).send(`Identifiant ou mot de passe incorrect`);
     const checkPwd = await Auth.verifyPassword(password, user.password);

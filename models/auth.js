@@ -17,14 +17,31 @@ const hashingOptions = {
 const signupValidation = (data, forCreation = true) => {
   const presence = forCreation ? 'required' : 'optional';
   return Joi.object({
-    mail: Joi.string().email().max(128).presence(presence),
+    mail: Joi.string().email().max(128).presence(presence).messages({
+      'string.email': `Le format de l'adresse e-mail est invalide`,
+      'string.pattern.base': `Le  Mot de Passe doit contenir au moins 8 caractères, une majuscule, un nombre et un caractère spécial`,
+    }),
     password: Joi.string()
       .max(64)
       .presence(presence)
-      .pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/),
+      .pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
+      .messages({
+        'string.empty': `Le Mot de Passe est obligatoire`,
+        'string.pattern.base': `Le  Mot de Passe doit contenir au moins 8 caractères, une majuscule, un nombre et un caractère spécial`,
+      }),
     repeatPass: Joi.ref('password'),
-    firstname: Joi.string().min(1).max(64).presence(presence),
-    lastname: Joi.string().min(1).max(64).presence(presence),
+    firstname: Joi.string().trim().min(3).max(64).presence(presence).messages({
+      'string.base': `Le Prénom ne doit contenir que des lettres`,
+      'string.empty': `Le Prénom est obligatoire`,
+      'string.min': `Le Prénom doit contenir au minimum 3 lettres`,
+      'any.required': `Le Prénom est obligatoire`,
+    }),
+    lastname: Joi.string().trim().min(3).max(64).presence(presence).messages({
+      'string.base': `Le Nom ne doit contenir que des lettres`,
+      'string.empty': `Le Nom est obligatoire`,
+      'string.min': `Le Nom doit contenir au minimum 3 lettres`,
+      'any.required': `Le Nom est obligatoire`,
+    }),
   }).validate(data, { abortEarly: false }).error;
 };
 const loginValidation = (data, forCreation = true) => {
