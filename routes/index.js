@@ -3,6 +3,7 @@ const teamRoutes = require('./team');
 const contactRoutes = require('./contact');
 const localisationRoutes = require('./localisation');
 const newsRoutes = require('./news');
+const reviewRoutes = require('./review');
 const carsRoutes = require('./cars');
 const orderRoutes = require('./order');
 const mailInfoRoutes = require('./mail');
@@ -11,6 +12,7 @@ const setupRoutes = (app) => {
   app.use('/auth', authRouter);
   app.use('/team', teamRoutes);
   app.use('/cars', carsRoutes);
+  app.use('/review', reviewRoutes);
   app.use('/contact', contactRoutes);
   app.use('/mail', mailInfoRoutes);
   app.use('/news', newsRoutes);
