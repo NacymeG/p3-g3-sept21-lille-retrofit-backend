@@ -16,7 +16,6 @@ const setupRoutes = (app) => {
   app.use('/mail', mailInfoRoutes);
   app.use('/news', newsRoutes);
   app.use('/localisation', localisationRoutes);
-  app.use('/cars', carsRoutes);
   app.use('/order', orderRoutes);
   app.use('/profile', userRoutes);
 };
