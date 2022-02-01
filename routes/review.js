@@ -1,5 +1,4 @@
 const express = require('express');
-
 const router = express.Router();
 const { db } = require('../db-config');
 
@@ -14,7 +13,6 @@ router.get('/', async (req, res) => {
     res.json(review).status(201);
   } catch (err) {
     res.status(404).send('Not found');
-    console.warn(err);
   }
 });
 
@@ -23,7 +21,6 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const id = await req.params.id;
-    console.log('get', id);
     const [review] = await db.query(
       `
     SELECT  *
@@ -34,7 +31,6 @@ router.get('/:id', async (req, res) => {
     res.json(review).status(201);
   } catch (err) {
     res.status(404);
-    console.warn(err);
   }
 });
 
@@ -42,8 +38,6 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   const id = await req.params.id;
-  console.log('put', id);
-
   await db.query('UPDATE review SET ? WHERE id = ?', [req.body, id]);
   res.status(204).json(req.body);
 });
@@ -64,7 +58,6 @@ router.post('/', async (req, res) => {
     'INSERT INTO review (content, rating, firstname, lastname) VALUES (?,?,?,?)',
     [content, rating, firstname, lastname]
   );
-
   res.status(204).json(req.body);
 });
 module.exports = router;
