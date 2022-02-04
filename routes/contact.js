@@ -22,7 +22,7 @@ contactRouter.post('/', (req, res) => {
       attachments: [
         {
           filename: 'Logo.png',
-          path: `${__dirname}/assets/Logo.png`,
+          path: __dirname + '/assets/Logo.png',
           cid: 'logo',
         },
       ],
