@@ -12,7 +12,6 @@ router.get('/', async (req, res) => {
     res.json(location).status(201);
   } catch (err) {
     res.status(404);
-    console.warn(err);
   }
 });
 module.exports = router;
