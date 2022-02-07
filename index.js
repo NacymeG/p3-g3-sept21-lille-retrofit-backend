@@ -15,7 +15,6 @@ setupRoutes(app);
 // 404 Error
 app.use('/', (req, res) => {
   const msg = `Page not found: ${req.method} ${req.url}`;
-  console.log(`404 - ${msg}`);
   res.status(404).send(msg);
 });
 
