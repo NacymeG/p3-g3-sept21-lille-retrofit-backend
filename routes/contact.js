@@ -15,14 +15,14 @@ contactRouter.post('/', (req, res) => {
 
   emailer.sendMail(
     {
-      from: `wild.retrofit@gmail.com`,
-      to: 'wild.retrofit@gmail.com',
+      from: `contact@everetrofit.com`,
+      to: 'contact@everetrofit.com',
       subject: `${subject}`,
       text: '',
       attachments: [
         {
           filename: 'Logo.png',
-          path: __dirname + '/assets/Logo.png',
+          path: `${__dirname}/assets/Logo.png`,
           cid: 'logo',
         },
       ],
